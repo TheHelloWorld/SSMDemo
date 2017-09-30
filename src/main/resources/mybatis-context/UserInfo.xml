@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxjr.sudadai.dao.UserInfoDAO">
+
+    <insert id="saveUserInfo" parameterType="com.lxjr.sudadai.entity.UserInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into user_info (userId, reanName,idCardNo,createTime,updateTime)
+        values (
+          #{userId,jdbcType=BIGINT},
+          #{reanName,jdbcType=VARCHAR},
+          #{idCardNo,jdbcType=VARCHAR},
+          now(),
+          now()
+        )
+    </insert>
+
+    <select id="getUserInfoCount" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select count(*) from user_info where userId = #{userId}
+    </select>
+
+    <select id="getUserInfoCountByIdCardNoAndUserId" resultType="java.lang.Integer">
+        select count(*) from user_info where userId = #{userId} or idCardNo = #{idCardNo}
+    </select>
+
+</mapper>

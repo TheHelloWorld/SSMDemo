@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxjr.sudadai.dao.UserActiveDAO">
+
+    <insert id="saveUserActive" parameterType="com.lxjr.sudadai.entity.UserActive" useGeneratedKeys="true" keyProperty="id">
+        insert into user_active (openId, unionId,activeCode,createTime)
+        values (
+          #{openId,jdbcType=VARCHAR},
+          #{unionId,jdbcType=VARCHAR},
+          #{activeCode,jdbcType=VARCHAR},
+          now()
+        )
+    </insert>
+
+</mapper>

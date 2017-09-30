@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxjr.sudadai.dao.SourceDAO">
+
+    <select id="querySourceByName" parameterType="java.lang.String" resultType="com.lxjr.sudadai.entity.Source">
+        select id,`name`,sourceCode,companyName from source where `name` = #{sourceName}
+    </select>
+
+    <select id="querySourceById" parameterType="java.lang.Long" resultType="com.lxjr.sudadai.entity.Source">
+        select id,`name`,sourceCode,companyName from source where id = #{id}
+    </select>
+
+</mapper>

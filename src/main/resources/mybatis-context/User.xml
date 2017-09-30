@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxjr.sudadai.dao.UserDAO">
+
+    <insert id="saveUser" parameterType="com.lxjr.sudadai.entity.User" useGeneratedKeys="true" keyProperty="id">
+        insert into `user` (mobile, password, sourceId, registerTime, firstTarget, uuid)
+        values (
+            #{mobile,jdbcType=VARCHAR},
+            #{password,jdbcType=VARCHAR},
+            #{sourceId,jdbcType=BIGINT},
+            now(),
+            #{firstTarget,jdbcType=BIGINT},
+            #{uuid,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <update id="updateUserUUIDById" >
+        update `user` set uuid = #{uuid} where id = #{id}
+    </update>
+
+    <select id="queryUserByMobile" parameterType="java.lang.String" resultType="com.lxjr.sudadai.entity.User">
+        select id,mobile,sourceId,firstTarget from `user` where mobile = #{mobile}
+    </select>
+
+    <select id="queryUserByUUID" parameterType="java.lang.String" resultType="com.lxjr.sudadai.entity.User">
+        select id,mobile,sourceId,firstTarget from `user` where uuid = #{uuid}
+    </select>
+
+    <update id="updateUserFirstTargetById" >
+        update `user` set firstTarget = #{firstTarget} where id = #{id}
+    </update>
+
+    <select id="queryUserById" parameterType="java.lang.Long" resultType="com.lxjr.sudadai.entity.User">
+        select id,mobile,sourceId,firstTarget from `user` where id = #{id}
+    </select>
+
+</mapper>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxjr.sudadai.dao.TagDAO">
+
+    <select id="queryAllTag" resultType="com.lxjr.sudadai.entity.Tag">
+        select tagCode,content from tag
+    </select>
+
+    <select id="getCountByTagCode" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*) from tag where tagCode = #{tagCode}
+    </select>
+
+</mapper>

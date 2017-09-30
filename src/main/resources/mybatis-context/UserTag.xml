@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxjr.sudadai.dao.UserTagDAO">
+
+    <insert id="saveUserTag" parameterType="com.lxjr.sudadai.entity.UserTag" useGeneratedKeys="true" keyProperty="id">
+        insert into user_tag (userId, tagCode,selectOrder,createTime)
+        values (
+            #{userId,jdbcType=BIGINT},
+            #{tagCode,jdbcType=VARCHAR},
+            #{selectOrder,jdbcType=TINYINT},
+            now()
+        )
+    </insert>
+
+    <select id="getUserTagsCountByUserId" parameterType="java.lang.Long" resultType="java.lang.Integer">
+        select count(*) from user_tag where userId = #{userId}
+    </select>
+
+    <select id="queryUserTagsByUserId" parameterType="java.lang.Long" resultType="com.lxjr.sudadai.entity.UserTag">
+        select userId, tagCode, selectOrder from user_tag where userId = #{userId}
+    </select>
+
+</mapper>
