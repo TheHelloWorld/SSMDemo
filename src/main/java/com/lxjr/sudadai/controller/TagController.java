@@ -19,28 +19,29 @@ import java.util.List;
 @Controller
 public class TagController {
 
-    private static final Logger logger = LoggerFactory.getLogger(TagController.class);
+	private static final Logger logger = LoggerFactory.getLogger(TagController.class);
 
-    @Resource
-    private ITagService tagService;
+	@Resource
+	private ITagService tagService;
 
-    /**
-     * 获得所有标签
-     * @return
-     */
-    @RequestMapping(value="/getAllTag",method= RequestMethod.POST, produces="text/html;charset=UTF-8")
-    @ResponseBody
-    public String getAllTag() {
-        JSONObject jsonObject = new JSONObject();
-        try{
-            List<Tag> tagList = tagService.queryAllTag();
-            jsonObject.put(BaseConstant.SUCCESS,true);
-            jsonObject.put("tagList",tagList);
-        }catch(Exception e) {
-            logger.error(BaseConstant.LOG_ERR_MSG+" getAllTag error:"+e,e);
-            return ReturnUtil.getReturnErrJson();
-        }
-        return jsonObject.toJSONString();
-    }
+	/**
+	 * 获得所有标签
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/getAllTag", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String getAllTag() {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			List<Tag> tagList = tagService.queryAllTag();
+			jsonObject.put(BaseConstant.SUCCESS, true);
+			jsonObject.put("tagList", tagList);
+		} catch (Exception e) {
+			logger.error(BaseConstant.LOG_ERR_MSG + " getAllTag error:" + e, e);
+			return ReturnUtil.getReturnErrJson();
+		}
+		return jsonObject.toJSONString();
+	}
 
 }

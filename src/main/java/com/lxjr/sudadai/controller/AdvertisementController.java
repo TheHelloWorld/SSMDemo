@@ -19,28 +19,29 @@ import java.util.List;
 @Controller
 public class AdvertisementController {
 
-    private static final Logger logger = LoggerFactory.getLogger(AdvertisementController.class);
+	private static final Logger logger = LoggerFactory.getLogger(AdvertisementController.class);
 
-    @Resource
-    private IAdvertisementService advertisementService;
+	@Resource
+	private IAdvertisementService advertisementService;
 
-    /**
-     * 获取广告list
-     * @return
-     */
-    @RequestMapping(value="/queryAd",method= RequestMethod.POST, produces="text/html;charset=UTF-8")
-    @ResponseBody
-    public String queryAd() {
-        JSONObject jsonObject = new JSONObject();
-        try {
-            List<Advertisement> adList = advertisementService.queryAllAdvertisement();
-            jsonObject.put(BaseConstant.SUCCESS,true);
-            jsonObject.put("adList",adList);
-        } catch(Exception e) {
-            logger.error(BaseConstant.LOG_ERR_MSG+" queryAd error:"+e,e);
-            return ReturnUtil.getReturnErrJson();
-        }
+	/**
+	 * 获取广告list
+	 *
+	 * @return
+	 */
+	@RequestMapping(value = "/queryAd", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String queryAd() {
+		JSONObject jsonObject = new JSONObject();
+		try {
+			List<Advertisement> adList = advertisementService.queryAllAdvertisement();
+			jsonObject.put(BaseConstant.SUCCESS, true);
+			jsonObject.put("adList", adList);
+		} catch (Exception e) {
+			logger.error(BaseConstant.LOG_ERR_MSG + " queryAd error:" + e, e);
+			return ReturnUtil.getReturnErrJson();
+		}
 
-        return jsonObject.toJSONString();
-    }
+		return jsonObject.toJSONString();
+	}
 }

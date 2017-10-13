@@ -20,54 +20,56 @@ import javax.annotation.Resource;
 @Controller
 public class ActiveListController {
 
-    private static final Logger logger = LoggerFactory.getLogger(ActiveListController.class);
+	private static final Logger logger = LoggerFactory.getLogger(ActiveListController.class);
 
-    @Resource
-    private IActiveListService activeListService;
+	@Resource
+	private IActiveListService activeListService;
 
-    @Resource
-    private IUserActiveService userActiveService;
+	@Resource
+	private IUserActiveService userActiveService;
 
-    /**
-     * 根据活动code获得活动信息
-     * @param code 微信code
-     * @param activeCode 活动code
-     * @return
-     */
-    @RequestMapping(value="/queryActiveInfo",method= RequestMethod.POST, produces="text/html;charset=UTF-8")
-    @ResponseBody
-    public String queryActiveInfo(String code,String activeCode) {
+	/**
+	 * 根据活动code获得活动信息
+	 *
+	 * @param code       微信code
+	 * @param activeCode 活动code
+	 * @return
+	 */
+	@RequestMapping(value = "/queryActiveInfo", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String queryActiveInfo(String code, String activeCode) {
 
-        JSONObject returnJson = new JSONObject();
-        try{
+		JSONObject returnJson = new JSONObject();
+		try {
 
-            if(StringUtils.isBlank(activeCode)) {
-                return getActiveErrReturnJson();
-            }
-            // 根据活动code获得获得信息
-            ActiveInfo activeInfo = activeListService.queryActiveInfo(activeCode);
-            if(activeInfo == null) {
-               return getActiveErrReturnJson();
-            }
-            // 异步查询用户信息并储存用户活动
-            userActiveService.queryWinXinInfoAndSaveUserActive(code,activeCode);
-            returnJson.put(BaseConstant.SUCCESS,true);
-        }catch(Exception e) {
-            logger.error(BaseConstant.LOG_ERR_MSG+" queryActiveInfo error:"+e,e);
-            return ReturnUtil.getReturnErrJson();
-        }
+			if (StringUtils.isBlank(activeCode)) {
+				return getActiveErrReturnJson();
+			}
+			// 根据活动code获得获得信息
+			ActiveInfo activeInfo = activeListService.queryActiveInfo(activeCode);
+			if (activeInfo == null) {
+				return getActiveErrReturnJson();
+			}
+			// 异步查询用户信息并储存用户活动
+			userActiveService.queryWinXinInfoAndSaveUserActive(code, activeCode);
+			returnJson.put(BaseConstant.SUCCESS, true);
+		} catch (Exception e) {
+			logger.error(BaseConstant.LOG_ERR_MSG + " queryActiveInfo error:" + e, e);
+			return ReturnUtil.getReturnErrJson();
+		}
 
-        return returnJson.toJSONString();
-    }
+		return returnJson.toJSONString();
+	}
 
-    /**
-     * 获得获得错误Json
-     * @return
-     */
-    private String getActiveErrReturnJson() {
-        JSONObject json = new JSONObject();
-        json.put(BaseConstant.SUCCESS,false);
-        json.put(BaseConstant.REASON,"暂无活动");
-        return json.toJSONString();
-    }
+	/**
+	 * 获得获得错误Json
+	 *
+	 * @return
+	 */
+	private String getActiveErrReturnJson() {
+		JSONObject json = new JSONObject();
+		json.put(BaseConstant.SUCCESS, false);
+		json.put(BaseConstant.REASON, "暂无活动");
+		return json.toJSONString();
+	}
 }

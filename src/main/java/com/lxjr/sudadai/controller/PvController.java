@@ -20,40 +20,41 @@ import javax.annotation.Resource;
 @Controller
 public class PvController {
 
-    private static final Logger logger = LoggerFactory.getLogger(PvController.class);
+	private static final Logger logger = LoggerFactory.getLogger(PvController.class);
 
-    @Resource
-    private IPvService pvService;
+	@Resource
+	private IPvService pvService;
 
-    @Resource
-    private ISourceService sourceService;
+	@Resource
+	private ISourceService sourceService;
 
-    /**
-     * 记录用户来源
-     * @param source 用户来源
-     * @return
-     */
-    @RequestMapping(value="/pv",method= RequestMethod.POST, produces="text/html;charset=UTF-8")
-    @ResponseBody
-    public String pv(String source) {
-        JSONObject returnJson = new JSONObject();
-        try {
-            if(StringUtils.isBlank(source)) {
-                source = "or001";
-            }
-            Source entity = sourceService.querySourceByName(source);
-            if(entity == null) {
-                logger.warn("source 为空,sourceName:{}",source);
-                return returnJson.toJSONString();
-            }
-            pvService.savePV(entity.getId());
-            returnJson.put(BaseConstant.SUCCESS,true);
-        } catch(Exception e) {
-            logger.error(BaseConstant.LOG_ERR_MSG+" pv error:"+e,e);
-            return ReturnUtil.getReturnErrJson();
-        }
+	/**
+	 * 记录用户来源
+	 *
+	 * @param source 用户来源
+	 * @return
+	 */
+	@RequestMapping(value = "/pv", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String pv(String source) {
+		JSONObject returnJson = new JSONObject();
+		try {
+			if (StringUtils.isBlank(source)) {
+				source = "or001";
+			}
+			Source entity = sourceService.querySourceByName(source);
+			if (entity == null) {
+				logger.warn("source 为空,sourceName:{}", source);
+				return returnJson.toJSONString();
+			}
+			pvService.savePV(entity.getId());
+			returnJson.put(BaseConstant.SUCCESS, true);
+		} catch (Exception e) {
+			logger.error(BaseConstant.LOG_ERR_MSG + " pv error:" + e, e);
+			return ReturnUtil.getReturnErrJson();
+		}
 
-        return returnJson.toJSONString();
-    }
+		return returnJson.toJSONString();
+	}
 
 }

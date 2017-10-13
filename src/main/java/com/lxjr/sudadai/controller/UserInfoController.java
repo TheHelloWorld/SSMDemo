@@ -30,134 +30,136 @@ import java.util.Set;
 @Controller
 public class UserInfoController {
 
-    private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
+	private static final Logger logger = LoggerFactory.getLogger(UserInfoController.class);
 
-    @Resource
-    private IUserInfoService userInfoService;
+	@Resource
+	private IUserInfoService userInfoService;
 
-    @Resource
-    private ITargetService targetService;
+	@Resource
+	private ITargetService targetService;
 
-    @Resource
-    private ITagService tagService;
+	@Resource
+	private ITagService tagService;
 
-    @Resource
-    private IUserService userService;
+	@Resource
+	private IUserService userService;
 
-    /**
-     * 储存用户信息及标签
-     * @param userId 用户Id
-     * @param realName 真实姓名
-     * @param idCardNo 身份证号
-     * @param userTags 用户选择标签
-     * @param source 用户来源
-     * @param sourceUrl 来源url
-     * @return
-     */
-    @RequestMapping(value="/saveUserInfoAndTags",method= RequestMethod.POST, produces="text/html;charset=UTF-8")
-    @ResponseBody
-    public String saveUserInfoAndTags(Long userId,String realName,String idCardNo,String userTags,String source,
-                                      String sourceUrl) {
-        JSONObject json = new JSONObject();
-        try{
+	/**
+	 * 储存用户信息及标签
+	 *
+	 * @param userId    用户Id
+	 * @param realName  真实姓名
+	 * @param idCardNo  身份证号
+	 * @param userTags  用户选择标签
+	 * @param source    用户来源
+	 * @param sourceUrl 来源url
+	 * @return
+	 */
+	@RequestMapping(value = "/saveUserInfoAndTags", method = RequestMethod.POST, produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public String saveUserInfoAndTags(Long userId, String realName, String idCardNo, String userTags, String source,
+	                                  String sourceUrl) {
+		JSONObject json = new JSONObject();
+		try {
 
-            String result = checkUserInfo(userId,realName,idCardNo,userTags);
-            // 检查参数
-            if(!BaseConstant.SUCCESS.equals(result)){
-                return ReturnUtil.getReasonReturnJson(result);
-            }
-            logger.info("userTags:{}",userTags);
-            JSONArray jsonArray;
-            // 检验userTags格式
-            try{
-                jsonArray = JSONArray.parseArray(userTags);
-            }catch(Exception e) {
-                logger.error("userTags格式非法,userTags:{}",userTags);
-                return ReturnUtil.getReasonReturnJson("userTags格式非法");
-            }
+			String result = checkUserInfo(userId, realName, idCardNo, userTags);
+			// 检查参数
+			if (!BaseConstant.SUCCESS.equals(result)) {
+				return ReturnUtil.getReasonReturnJson(result);
+			}
+			logger.info("userTags:{}", userTags);
+			JSONArray jsonArray;
+			// 检验userTags格式
+			try {
+				jsonArray = JSONArray.parseArray(userTags);
+			} catch (Exception e) {
+				logger.error("userTags格式非法,userTags:{}", userTags);
+				return ReturnUtil.getReasonReturnJson("userTags格式非法");
+			}
 
-            // 检查用户是否合法
-            if(userService.queryUserById(userId) == null){
-                logger.warn("当前用户不存在,userId:{}", userId);
-                return ReturnUtil.getReasonReturnJson("当前用户不存在");
-            }
-            UserInfo userInfo = new UserInfo();
-            userInfo.setUserId(userId);
-            userInfo.setIdCardNo(idCardNo);
-            userInfo.setRealName(realName);
+			// 检查用户是否合法
+			if (userService.queryUserById(userId) == null) {
+				logger.warn("当前用户不存在,userId:{}", userId);
+				return ReturnUtil.getReasonReturnJson("当前用户不存在");
+			}
+			UserInfo userInfo = new UserInfo();
+			userInfo.setUserId(userId);
+			userInfo.setIdCardNo(idCardNo);
+			userInfo.setRealName(realName);
 
-            List<UserTag> userTagList = new ArrayList<>(jsonArray.size());
-            // 标签去重
-            Set<String> tagSet = new HashSet<>(jsonArray.size());
-            int order = 1;
-            // 遍历用户选择的标签
-            for(int i = 0;i<jsonArray.size();i++) {
+			List<UserTag> userTagList = new ArrayList<>(jsonArray.size());
+			// 标签去重
+			Set<String> tagSet = new HashSet<>(jsonArray.size());
+			int order = 1;
+			// 遍历用户选择的标签
+			for (int i = 0; i < jsonArray.size(); i++) {
 
-                String tagCode = String.valueOf(jsonArray.get(i));
-                // 如果标签不重复
-                if(tagSet.add(tagCode)) {
-                    // 判断标签是否存在
-                    if(tagService.getCountByTagCode(tagCode) == 0) {
-                        logger.info("userId:{} 非法标签code:{}",userId,tagCode);
-                        continue;
-                    }
-                    UserTag userTag = new UserTag();
-                    userTag.setTagCode(String.valueOf(jsonArray.get(i)));
-                    userTag.setUserId(userId);
-                    userTag.setSelectOrder(order);
-                    userTagList.add(userTag);
-                    order++;
-                }
-            }
+				String tagCode = String.valueOf(jsonArray.get(i));
+				// 如果标签不重复
+				if (tagSet.add(tagCode)) {
+					// 判断标签是否存在
+					if (tagService.getCountByTagCode(tagCode) == 0) {
+						logger.info("userId:{} 非法标签code:{}", userId, tagCode);
+						continue;
+					}
+					UserTag userTag = new UserTag();
+					userTag.setTagCode(String.valueOf(jsonArray.get(i)));
+					userTag.setUserId(userId);
+					userTag.setSelectOrder(order);
+					userTagList.add(userTag);
+					order++;
+				}
+			}
 
-            tagSet.clear();
+			tagSet.clear();
 
-            if(userTagList.isEmpty()) {
-                throw new RuntimeException("userTagList is empty");
-            }
+			if (userTagList.isEmpty()) {
+				throw new RuntimeException("userTagList is empty");
+			}
 
-            // 存储用户信息
-            String msg =userInfoService.saveUserInfoAndTags(userInfo,userTagList);
+			// 存储用户信息
+			String msg = userInfoService.saveUserInfoAndTags(userInfo, userTagList);
 
-            if(!BaseConstant.SUCCESS.equals(msg)) {
-                return ReturnUtil.getReasonReturnJson("msg");
-            }
+			if (!BaseConstant.SUCCESS.equals(msg)) {
+				return ReturnUtil.getReasonReturnJson("msg");
+			}
 
-            // 根据用户选择标签对平台进行排序
-            List<Target> targetList = targetService.queryTargetByUserId(userId,source,sourceUrl);
-            json.put(BaseConstant.SUCCESS,true);
-            json.put("targetList",targetList);
-        }catch(Exception e) {
-            logger.error(BaseConstant.LOG_ERR_MSG+" saveUserInfoAndTags error:"+e,e);
-            return ReturnUtil.getReturnErrJson();
-        }
-        return json.toJSONString();
-    }
+			// 根据用户选择标签对平台进行排序
+			List<Target> targetList = targetService.queryTargetByUserId(userId, source, sourceUrl);
+			json.put(BaseConstant.SUCCESS, true);
+			json.put("targetList", targetList);
+		} catch (Exception e) {
+			logger.error(BaseConstant.LOG_ERR_MSG + " saveUserInfoAndTags error:" + e, e);
+			return ReturnUtil.getReturnErrJson();
+		}
+		return json.toJSONString();
+	}
 
-    /**
-     * 检查用户信息
-     * @return
-     */
-    private String checkUserInfo(Long userId,String realName,String idCardNo,String userTags) {
-        if(userId == null) {
-            return "当前未登录";
-        }
-        if(StringUtils.isBlank(realName)) {
-            return "真实姓名为空";
-        }
-        if(StringUtils.isBlank(idCardNo)) {
-            return "身份证号为空";
-        }
-        // 验证身份证号
-        if(!IdCardNoValidator.isValidatedAllIdCardNo(idCardNo)) {
-            logger.info("validateIdCardNo msg:拦截的身份证号,userId:{},idCardNo:{}",userId,idCardNo);
-            return "请填写正确的身份证号";
-        }
-        if(StringUtils.isBlank(userTags)) {
-            return "用户标签为空";
-        }
+	/**
+	 * 检查用户信息
+	 *
+	 * @return
+	 */
+	private String checkUserInfo(Long userId, String realName, String idCardNo, String userTags) {
+		if (userId == null) {
+			return "当前未登录";
+		}
+		if (StringUtils.isBlank(realName)) {
+			return "真实姓名为空";
+		}
+		if (StringUtils.isBlank(idCardNo)) {
+			return "身份证号为空";
+		}
+		// 验证身份证号
+		if (!IdCardNoValidator.isValidatedAllIdCardNo(idCardNo)) {
+			logger.info("validateIdCardNo msg:拦截的身份证号,userId:{},idCardNo:{}", userId, idCardNo);
+			return "请填写正确的身份证号";
+		}
+		if (StringUtils.isBlank(userTags)) {
+			return "用户标签为空";
+		}
 
-        return BaseConstant.SUCCESS;
-    }
+		return BaseConstant.SUCCESS;
+	}
 
 }
