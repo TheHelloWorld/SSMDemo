@@ -7,22 +7,34 @@ public class UserInfo implements Serializable {
 
 	private static final long serialVersionUID = -4954366162493302680L;
 
-	/** 主键Id **/
+	/**
+	 * 主键Id
+	 **/
 	private Long id;
 
-	/** 用户id **/
+	/**
+	 * 用户id
+	 **/
 	private Long userId;
 
-	/** 真实姓名 **/
+	/**
+	 * 真实姓名
+	 **/
 	private String realName;
 
-	/** 身份证号 **/
+	/**
+	 * 身份证号
+	 **/
 	private String idCardNo;
 
-	/** 创建时间 **/
+	/**
+	 * 创建时间
+	 **/
 	private Timestamp createTime;
 
-	/** 更新时间 **/
+	/**
+	 * 更新时间
+	 **/
 	private Timestamp updateTime;
 
 	public Long getId() {

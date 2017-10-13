@@ -10,26 +10,28 @@ import javax.annotation.Resource;
 @Service("sourceService")
 public class SourceServiceImpl implements ISourceService {
 
-    @Resource
-    private SourceDAO sourceDAO;
+	@Resource
+	private SourceDAO sourceDAO;
 
-    /**
-     * 根据上游名称查询上游信息
-     * @param sourceName 上游名称
-     * @return
-     */
-    @Override
-    public Source querySourceByName(String sourceName) {
-        return sourceDAO.querySourceByName(sourceName);
-    }
+	/**
+	 * 根据上游名称查询上游信息
+	 *
+	 * @param sourceName 上游名称
+	 * @return
+	 */
+	@Override
+	public Source querySourceByName(String sourceName) {
+		return sourceDAO.querySourceByName(sourceName);
+	}
 
-    /**
-     * 根据主键Id获得上游
-     * @param id 主键Id
-     * @return
-     */
-    @Override
-    public Source querySourceById(Long id) {
-        return sourceDAO.querySourceById(id);
-    }
+	/**
+	 * 根据主键Id获得上游
+	 *
+	 * @param id 主键Id
+	 * @return
+	 */
+	@Override
+	public Source querySourceById(Long id) {
+		return sourceDAO.querySourceById(id);
+	}
 }

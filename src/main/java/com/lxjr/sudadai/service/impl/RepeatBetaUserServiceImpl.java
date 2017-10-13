@@ -10,17 +10,18 @@ import javax.annotation.Resource;
 @Service("repeatBetaUserService")
 public class RepeatBetaUserServiceImpl implements IRepeatBetaUserService {
 
-    @Resource
-    private RepeatBetaUserDAO repeatBetaUserDAO;
+	@Resource
+	private RepeatBetaUserDAO repeatBetaUserDAO;
 
-    /**
-     * 保存RepeatBetaUser
-     * @param repeatBetaUser RepeatBetaUser类
-     * @return
-     */
-    @Override
-    public void saveRepeatBetaUser(RepeatBetaUser repeatBetaUser) {
-        repeatBetaUserDAO.saveRepeatBetaUser(repeatBetaUser);
-    }
+	/**
+	 * 保存RepeatBetaUser
+	 *
+	 * @param repeatBetaUser RepeatBetaUser类
+	 * @return
+	 */
+	@Override
+	public void saveRepeatBetaUser(RepeatBetaUser repeatBetaUser) {
+		repeatBetaUserDAO.saveRepeatBetaUser(repeatBetaUser);
+	}
 
 }

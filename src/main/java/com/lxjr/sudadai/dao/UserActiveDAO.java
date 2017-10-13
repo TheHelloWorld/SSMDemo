@@ -6,10 +6,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserActiveDAO {
 
-    /**
-     * 储存用户活动
-     * @param userActive 用户活动类
-     */
-    void saveUserActive(UserActive userActive);
+	/**
+	 * 储存用户活动
+	 *
+	 * @param userActive 用户活动类
+	 */
+	void saveUserActive(UserActive userActive);
 
 }

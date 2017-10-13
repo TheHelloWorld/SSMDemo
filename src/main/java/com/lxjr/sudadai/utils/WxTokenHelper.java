@@ -24,13 +24,17 @@ public class WxTokenHelper {
 	private static final Logger logger = LoggerFactory.getLogger(WxTokenHelper.class);
 
 	private static final String access_token_url =
-			"https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type=authorization_code";
+			"https://api.weixin.qq.com/sns/oauth2/access_token?appid=APPID&secret=SECRET&code=CODE&grant_type" +
+					"=authorization_code";
 
-	private static final String get_userInfo_url = "https://api.weixin.qq.com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
+	private static final String get_userInfo_url = "https://api.weixin.qq" +
+			".com/sns/userinfo?access_token=ACCESS_TOKEN&openid=OPENID&lang=zh_CN";
 
 	private volatile static AccessToken accessToken = null;
 
-	/** 设置链接超时时间 **/
+	/**
+	 * 设置链接超时时间
+	 **/
 	private static final int timeout = 15000;
 
 
@@ -39,7 +43,7 @@ public class WxTokenHelper {
 
 		String requestUrl = access_token_url.replace("APPID", "wxa25ba776b86f29c7")
 				.replace("SECRET", "347a665a2381b5f24df725b26a93a1d8")
-				.replace("CODE",code);
+				.replace("CODE", code);
 		JSONObject jsonObject = httpRequest(requestUrl, "GET", null);
 		// 如果请求成功
 		if (null != jsonObject) {
@@ -87,37 +91,38 @@ public class WxTokenHelper {
 			}
 
 			// 将返回的输入流转换成字符串
-			try(InputStream inputStream = httpUrlConn.getInputStream();
-				InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
-				BufferedReader bufferedReader = new BufferedReader(inputStreamReader)){
+			try (InputStream inputStream = httpUrlConn.getInputStream();
+			     InputStreamReader inputStreamReader = new InputStreamReader(inputStream, "utf-8");
+			     BufferedReader bufferedReader = new BufferedReader(inputStreamReader)) {
 				String str;
 				while ((str = bufferedReader.readLine()) != null) {
 					builder.append(str);
 				}
-			}catch(Exception e1) {
-				logger.error(BaseConstant.LOG_ERR_MSG+" httpRequest steam error:"+e1,e1);
+			} catch (Exception e1) {
+				logger.error(BaseConstant.LOG_ERR_MSG + " httpRequest steam error:" + e1, e1);
 			}
 
 			httpUrlConn.disconnect();
 			jsonObject = JSONObject.fromObject(builder.toString());
 		} catch (ConnectTimeoutException cte) {
-			logger.error(BaseConstant.LOG_ERR_MSG+" WeiXin server connection timed out");
-		}catch (ConnectException ce) {
-			logger.error(BaseConstant.LOG_ERR_MSG+" WeiXin server connection error:"+ce,ce);
+			logger.error(BaseConstant.LOG_ERR_MSG + " WeiXin server connection timed out");
+		} catch (ConnectException ce) {
+			logger.error(BaseConstant.LOG_ERR_MSG + " WeiXin server connection error:" + ce, ce);
 		} catch (Exception e) {
-			logger.error(BaseConstant.LOG_ERR_MSG+" httpRequest error:"+e,e);
+			logger.error(BaseConstant.LOG_ERR_MSG + " httpRequest error:" + e, e);
 		}
 		return jsonObject;
 	}
 
 	/**
 	 * 根据用户微信code获取用户微信信息
+	 *
 	 * @param code 微信code
 	 * @return
 	 */
 	public static WxUserInfo getUserInfo(String code) {
 
-		if(StringUtils.isBlank(code)) {
+		if (StringUtils.isBlank(code)) {
 			logger.warn("微信code为空");
 			return null;
 		}
@@ -129,7 +134,7 @@ public class WxTokenHelper {
 							accessToken.getOpenid());
 			// 调用接口创建菜单
 			JSONObject jsonObject = httpRequest(url, "GET", null);
-			logger.info("WxTokenHelper jsonObject:{}",jsonObject.toString());
+			logger.info("WxTokenHelper jsonObject:{}", jsonObject.toString());
 			if (null != jsonObject) {
 				WxUserInfo wui = new WxUserInfo();
 				wui.setOpenid(jsonObject.optString("openid"));

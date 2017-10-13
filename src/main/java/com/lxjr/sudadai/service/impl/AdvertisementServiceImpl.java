@@ -11,15 +11,16 @@ import java.util.List;
 @Service("advertisementService")
 public class AdvertisementServiceImpl implements IAdvertisementService {
 
-    @Resource
-    private AdvertisementDAO advertisementDAO;
+	@Resource
+	private AdvertisementDAO advertisementDAO;
 
-    /**
-     * 获得所有广告
-     * @return
-     */
-    @Override
-    public List<Advertisement> queryAllAdvertisement() {
-        return advertisementDAO.queryAllAdvertisement();
-    }
+	/**
+	 * 获得所有广告
+	 *
+	 * @return
+	 */
+	@Override
+	public List<Advertisement> queryAllAdvertisement() {
+		return advertisementDAO.queryAllAdvertisement();
+	}
 }

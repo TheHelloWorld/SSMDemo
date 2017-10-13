@@ -30,87 +30,86 @@ import org.springframework.util.StreamUtils;
  * 通过构造方法注入UTF-8。
  * <p>
  *
- * @author  tao.zhang
- * @version  [V1.0, 2014-8-29]
- * @see  [相关类/方法]
- * @since  [产品/模块版本]
+ * @author tao.zhang
+ * @version [V1.0, 2014-8-29]
+ * @see [相关类/方法]
+ * @since [产品/模块版本]
  */
 public class Utf8StringHttpMessageConverter extends AbstractHttpMessageConverter<String> {
 
-    private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
+	private static final Charset DEFAULT_CHARSET = Charset.forName("UTF-8");
 
-    private final Charset defaultCharset;
+	private final Charset defaultCharset;
 
-    private final List<Charset> availableCharsets;
+	private final List<Charset> availableCharsets;
 
-    private boolean writeAcceptCharset = true;
+	private boolean writeAcceptCharset = true;
 
 
-    public Utf8StringHttpMessageConverter() {
-        this(DEFAULT_CHARSET);
-    }
+	public Utf8StringHttpMessageConverter() {
+		this(DEFAULT_CHARSET);
+	}
 
-    public Utf8StringHttpMessageConverter(Charset defaultCharset) {
-        super(new MediaType("text", "plain", defaultCharset), MediaType.ALL);
-        this.defaultCharset = defaultCharset;
-        this.availableCharsets = new ArrayList<Charset>(Charset.availableCharsets().values());
-    }
+	public Utf8StringHttpMessageConverter(Charset defaultCharset) {
+		super(new MediaType("text", "plain", defaultCharset), MediaType.ALL);
+		this.defaultCharset = defaultCharset;
+		this.availableCharsets = new ArrayList<Charset>(Charset.availableCharsets().values());
+	}
 
-    /**
-     * Indicates whether the {@code Accept-Charset} should be written to any outgoing request.
-     * <p>Default is {@code true}.
-     */
-    public void setWriteAcceptCharset(boolean writeAcceptCharset) {
-        this.writeAcceptCharset = writeAcceptCharset;
-    }
+	/**
+	 * Indicates whether the {@code Accept-Charset} should be written to any outgoing request.
+	 * <p>Default is {@code true}.
+	 */
+	public void setWriteAcceptCharset(boolean writeAcceptCharset) {
+		this.writeAcceptCharset = writeAcceptCharset;
+	}
 
-    @Override
-    public boolean supports(Class<?> clazz) {
-        return String.class.equals(clazz);
-    }
+	@Override
+	public boolean supports(Class<?> clazz) {
+		return String.class.equals(clazz);
+	}
 
-    @Override
-    protected String readInternal(Class<? extends String> clazz, HttpInputMessage inputMessage) throws IOException {
-        Charset charset = getContentTypeCharset(inputMessage.getHeaders().getContentType());
-        return StreamUtils.copyToString(inputMessage.getBody(), charset);
-    }
+	@Override
+	protected String readInternal(Class<? extends String> clazz, HttpInputMessage inputMessage) throws IOException {
+		Charset charset = getContentTypeCharset(inputMessage.getHeaders().getContentType());
+		return StreamUtils.copyToString(inputMessage.getBody(), charset);
+	}
 
-    @Override
-    protected Long getContentLength(String s, MediaType contentType) {
-        Charset charset = getContentTypeCharset(contentType);
-        try {
-            return (long) s.getBytes(charset.name()).length;
-        }
-        catch (UnsupportedEncodingException ex) {
-            // should not occur
-            throw new IllegalStateException(ex);
-        }
-    }
+	@Override
+	protected Long getContentLength(String s, MediaType contentType) {
+		Charset charset = getContentTypeCharset(contentType);
+		try {
+			return (long) s.getBytes(charset.name()).length;
+		} catch (UnsupportedEncodingException ex) {
+			// should not occur
+			throw new IllegalStateException(ex);
+		}
+	}
 
-    @Override
-    protected void writeInternal(String s, HttpOutputMessage outputMessage) throws IOException {
-        if (this.writeAcceptCharset) {
-            outputMessage.getHeaders().setAcceptCharset(getAcceptedCharsets());
-        }
-        Charset charset = getContentTypeCharset(outputMessage.getHeaders().getContentType());
-        StreamUtils.copy(s, charset, outputMessage.getBody());
-    }
+	@Override
+	protected void writeInternal(String s, HttpOutputMessage outputMessage) throws IOException {
+		if (this.writeAcceptCharset) {
+			outputMessage.getHeaders().setAcceptCharset(getAcceptedCharsets());
+		}
+		Charset charset = getContentTypeCharset(outputMessage.getHeaders().getContentType());
+		StreamUtils.copy(s, charset, outputMessage.getBody());
+	}
 
-    /**
-     * Return the list of supported {@link Charset}.
-     * <p>By default, returns {@link Charset#availableCharsets()}. Can be overridden in subclasses.
-     * @return the list of accepted charsets
-     */
-    protected List<Charset> getAcceptedCharsets() {
-        return this.availableCharsets;
-    }
+	/**
+	 * Return the list of supported {@link Charset}.
+	 * <p>By default, returns {@link Charset#availableCharsets()}. Can be overridden in subclasses.
+	 *
+	 * @return the list of accepted charsets
+	 */
+	protected List<Charset> getAcceptedCharsets() {
+		return this.availableCharsets;
+	}
 
-    private Charset getContentTypeCharset(MediaType contentType) {
-        if (contentType != null && contentType.getCharSet() != null) {
-            return contentType.getCharSet();
-        }
-        else {
-            return this.defaultCharset;
-        }
-    }
+	private Charset getContentTypeCharset(MediaType contentType) {
+		if (contentType != null && contentType.getCharSet() != null) {
+			return contentType.getCharSet();
+		} else {
+			return this.defaultCharset;
+		}
+	}
 }

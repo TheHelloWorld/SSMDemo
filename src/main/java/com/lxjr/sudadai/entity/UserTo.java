@@ -4,22 +4,32 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 public class UserTo implements Serializable {
-	
+
 	private static final long serialVersionUID = -4954366162493302680L;
 
-	/**	id bigint 	*/
+	/**
+	 * id bigint
+	 */
 	private Long id;
 
-	/**	用户id	bigint	*/
+	/**
+	 * 用户id	bigint
+	 */
 	private Long userId;
 
-	/**	来源id 	bigint	*/
+	/**
+	 * 来源id 	bigint
+	 */
 	private Long sourceId;
 
-	/**	去向id	bigint	*/
+	/**
+	 * 去向id	bigint
+	 */
 	private Long targetId;
 
-	/**	时间	timestamp */
+	/**
+	 * 时间	timestamp
+	 */
 	private Timestamp createTime;
 
 	public Long getId() {
@@ -61,5 +71,5 @@ public class UserTo implements Serializable {
 	public void setSourceId(Long sourceId) {
 		this.sourceId = sourceId;
 	}
-	
+
 }

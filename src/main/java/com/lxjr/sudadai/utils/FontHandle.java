@@ -11,6 +11,7 @@ import java.util.Random;
 /**
  * 获取ttf文件的字体。程序中用该包中的字体可以保证字体不受系统限制和影响
  * 自定义字体库对象
+ *
  * @description
  */
 public class FontHandle {
@@ -19,15 +20,21 @@ public class FontHandle {
 
 	private BufferedInputStream fb;
 
-	/**字体所在的路径*/
-	private static String path ;
+	/**
+	 * 字体所在的路径
+	 */
+	private static String path;
 
-	/**字体集合*/
+	/**
+	 * 字体集合
+	 */
 	private static Font[] fontTypes;
 
-	/** 创建随机类的实例以供下面调用 */
+	/**
+	 * 创建随机类的实例以供下面调用
+	 */
 	private static Random random = new Random();
-	
+
 	/* 设置字体文件路径 **/
 	static {
 		path = FontHandle.class.getResource("/").toString();
@@ -39,9 +46,9 @@ public class FontHandle {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	/* 设置待随机的字体 **/
 	static {
 		//创建自定义字体库对象（FontHandle为自定义读取字体文件的类） 
@@ -51,19 +58,21 @@ public class FontHandle {
 		Font f3 = fh.getFont("3.ttf");
 		Font f4 = fh.getFont("4.ttf");
 		Font f5 = fh.getFont("5.ttf");
-		fontTypes = new Font[]{f1,f2,f3,f4,f5}; 
+		fontTypes = new Font[]{f1, f2, f3, f4, f5};
 	}
-	
+
 	/**
 	 * 获取一个随机字体
+	 *
 	 * @return Font
 	 */
 	public static Font getRandomFont() {
 		return fontTypes[random.nextInt(fontTypes.length)];
 	}
-	
+
 	/**
 	 * 根据字体文件名称，获得一个字体对象
+	 *
 	 * @param fileName 文件名
 	 * @return Font
 	 */

@@ -5,11 +5,12 @@ import com.lxjr.sudadai.entity.User;
 
 public interface IUserToService {
 
-    /**
-     * 更新用户信息并记录用户去向
-     * @param target 用户去向平台
-     * @param user 用户
-     */
-    void updateUserAndSaveUserTo(Target target, User user);
+	/**
+	 * 更新用户信息并记录用户去向
+	 *
+	 * @param target 用户去向平台
+	 * @param user   用户
+	 */
+	void updateUserAndSaveUserTo(Target target, User user);
 
 }

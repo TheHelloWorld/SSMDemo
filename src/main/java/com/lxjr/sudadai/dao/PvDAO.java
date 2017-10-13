@@ -6,10 +6,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PvDAO {
 
-    /**
-     * 储存用户来源
-     * @param pv 用户来源
-     * @return
-     */
-    void savePV(PV pv);
+	/**
+	 * 储存用户来源
+	 *
+	 * @param pv 用户来源
+	 * @return
+	 */
+	void savePV(PV pv);
 }

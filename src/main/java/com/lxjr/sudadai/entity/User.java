@@ -3,29 +3,43 @@ package com.lxjr.sudadai.entity;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class User implements Serializable{
+public class User implements Serializable {
 
 	private static final long serialVersionUID = -4954366162493302680L;
 
-	/*	id bigint 	*/
+	/**
+	 * id bigint
+	 */
 	private Long id;
 
-	/*	电话	varchar(100)	*/
+	/**
+	 * 电话	varchar(100)
+	 */
 	private String mobile;
 
-	/*	密码	varchar(100)	*/
+	/**
+	 * 密码	varchar(100)
+	 */
 	private String password;
 
-	/*	注册时间 timestamp	*/
+	/**
+	 * 注册时间 timestamp
+	 */
 	private Timestamp registerTime;
 
-	/*	注册来源 	*/
+	/**
+	 * 注册来源
+	 */
 	private Long sourceId;
 
-	/*	用户第一次访问那个产品	*/
+	/**
+	 * 用户第一次访问那个产品,默认为-1
+	 */
 	private Long firstTarget;
 
-	/*	varchar  对外uuid，放在cookie等		*/
+	/**
+	 * varchar  对外uuid，放在cookie等
+	 */
 	private String uuid;
 
 	public Long getId() {
@@ -83,5 +97,5 @@ public class User implements Serializable{
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-	
+
 }

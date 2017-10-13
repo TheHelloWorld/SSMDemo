@@ -10,19 +10,20 @@ import javax.annotation.Resource;
 @Service("pvService")
 public class PvServiceImpl implements IPvService {
 
-    @Resource
-    private PvDAO pvDAO;
+	@Resource
+	private PvDAO pvDAO;
 
-    /**
-     * 储存用户来源
-     * @param sourceId 来源Id
-     */
-    @Override
-    public void savePV(Long sourceId) {
-        PV pv = new PV();
-        pv.setSourceId(sourceId);
-        pvDAO.savePV(pv);
-    }
+	/**
+	 * 储存用户来源
+	 *
+	 * @param sourceId 来源Id
+	 */
+	@Override
+	public void savePV(Long sourceId) {
+		PV pv = new PV();
+		pv.setSourceId(sourceId);
+		pvDAO.savePV(pv);
+	}
 
 
 }

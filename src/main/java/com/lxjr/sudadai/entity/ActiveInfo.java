@@ -7,22 +7,34 @@ public class ActiveInfo implements Serializable {
 
 	private static final long serialVersionUID = -4954366162493302680L;
 
-	/** 主键Id **/
+	/**
+	 * 主键Id
+	 **/
 	private Long id;
 
-	/** 活动编号 **/
+	/**
+	 * 活动编号
+	 **/
 	private String activeCode;
 
-	/** 活动名称 **/
+	/**
+	 * 活动名称
+	 **/
 	private String activeName;
 
-	/** 活动地址 **/
+	/**
+	 * 活动地址
+	 **/
 	private String activeUrl;
 
-	/** 活动内容 **/
+	/**
+	 * 活动内容
+	 **/
 	private String activeContent;
 
-	/** 创建时间 **/
+	/**
+	 * 创建时间
+	 **/
 	private Timestamp createTime;
 
 	public Long getId() {

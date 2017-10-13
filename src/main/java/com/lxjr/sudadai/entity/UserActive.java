@@ -7,19 +7,29 @@ public class UserActive implements Serializable {
 
 	private static final long serialVersionUID = -4954366162493302680L;
 
-	/** 主键Id **/
+	/**
+	 * 主键Id
+	 **/
 	private Long id;
 
-	/** 用户openId **/
+	/**
+	 * 用户openId
+	 **/
 	private String openId;
 
-	/** 用户unionId **/
+	/**
+	 * 用户unionId
+	 **/
 	private String unionId;
 
-	/** 活动编号 **/
+	/**
+	 * 活动编号
+	 **/
 	private String activeCode;
 
-	/** 创建时间 **/
+	/**
+	 * 创建时间
+	 **/
 	private Timestamp createTime;
 
 	public Long getId() {

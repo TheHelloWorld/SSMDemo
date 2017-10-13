@@ -6,9 +6,10 @@ import java.util.List;
 
 public interface IAdvertisementService {
 
-    /**
-     * 获得所有广告
-     * @return
-     */
-    List<Advertisement> queryAllAdvertisement();
+	/**
+	 * 获得所有广告
+	 *
+	 * @return
+	 */
+	List<Advertisement> queryAllAdvertisement();
 }

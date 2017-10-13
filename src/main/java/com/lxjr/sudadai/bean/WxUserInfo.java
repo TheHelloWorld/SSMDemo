@@ -2,13 +2,19 @@ package com.lxjr.sudadai.bean;
 
 public class WxUserInfo {
 
-	/** 用户openid **/
+	/**
+	 * 用户openid
+	 **/
 	private String openid;
 
-	/** 用户昵称 **/
+	/**
+	 * 用户昵称
+	 **/
 	private String nickname;
 
-	/** 用户unionid **/
+	/**
+	 * 用户unionid
+	 **/
 	private String unionid;
 
 	public String getUnionid() {

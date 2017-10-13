@@ -7,19 +7,29 @@ public class Tag implements Serializable {
 
 	private static final long serialVersionUID = -4954366162493302680L;
 
-	/** 主键Id **/
+	/**
+	 * 主键Id
+	 **/
 	private Long id;
 
-	/** 标签Code **/
+	/**
+	 * 标签Code
+	 **/
 	private String tagCode;
 
-	/** 描述 **/
+	/**
+	 * 描述
+	 **/
 	private String content;
 
-	/** 创建时间 **/
+	/**
+	 * 创建时间
+	 **/
 	private Timestamp createTime;
 
-	/** 习惯时间 **/
+	/**
+	 * 习惯时间
+	 **/
 	private Timestamp updateTime;
 
 	public Long getId() {

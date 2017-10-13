@@ -7,17 +7,23 @@ public class RepeatBetaUser implements Serializable {
 
 	private static final long serialVersionUID = -4954366162493302680L;
 
-	/**	id **/
+	/**
+	 * id
+	 **/
 	private Long id;
 
-	/**	电话	**/
+	/**
+	 * 电话
+	 **/
 	private String mobile;
 
 	private Timestamp createTime;
 
-	/**	注册来源 **/
+	/**
+	 * 注册来源
+	 **/
 	private Long sourceId;
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -49,7 +55,6 @@ public class RepeatBetaUser implements Serializable {
 	public void setSourceId(Long sourceId) {
 		this.sourceId = sourceId;
 	}
-	
-		
-	
+
+
 }

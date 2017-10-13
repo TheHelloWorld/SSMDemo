@@ -8,9 +8,10 @@ import java.util.List;
 @Repository
 public interface AdvertisementDAO {
 
-    /**
-     * 获得所有广告
-     * @return
-     */
-    List<Advertisement> queryAllAdvertisement();
+	/**
+	 * 获得所有广告
+	 *
+	 * @return
+	 */
+	List<Advertisement> queryAllAdvertisement();
 }

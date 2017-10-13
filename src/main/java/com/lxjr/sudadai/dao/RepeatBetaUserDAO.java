@@ -6,10 +6,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface RepeatBetaUserDAO {
 
-    /**
-     * 储存RepeatBetaUser
-     * @param repeatBetaUser RepeatBetaUser类
-     * @return
-     */
-    void saveRepeatBetaUser(RepeatBetaUser repeatBetaUser);
+	/**
+	 * 储存RepeatBetaUser
+	 *
+	 * @param repeatBetaUser RepeatBetaUser类
+	 * @return
+	 */
+	void saveRepeatBetaUser(RepeatBetaUser repeatBetaUser);
 }

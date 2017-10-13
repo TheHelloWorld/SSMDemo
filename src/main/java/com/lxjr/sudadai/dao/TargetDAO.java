@@ -8,16 +8,18 @@ import java.util.List;
 @Repository
 public interface TargetDAO {
 
-    /**
-     * 获得所有平台
-     * @return
-     */
-    List<Target> queryAllTarget();
+	/**
+	 * 获得所有平台
+	 *
+	 * @return
+	 */
+	List<Target> queryAllTarget();
 
-    /**
-     * 根据id获得平台
-     * @param id 主键Id
-     * @return
-     */
-    Target queryTargetById(Long id);
+	/**
+	 * 根据id获得平台
+	 *
+	 * @param id 主键Id
+	 * @return
+	 */
+	Target queryTargetById(Long id);
 }

@@ -4,33 +4,33 @@ import java.sql.Timestamp;
 
 public class PV {
 
-    private Long id;
+	private Long id;
 
-    private Long sourceId;
+	private Long sourceId;
 
-    private Timestamp createTime;
+	private Timestamp createTime;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Long getSourceId() {
-        return sourceId;
-    }
+	public Long getSourceId() {
+		return sourceId;
+	}
 
-    public void setSourceId(Long sourceId) {
-        this.sourceId = sourceId;
-    }
+	public void setSourceId(Long sourceId) {
+		this.sourceId = sourceId;
+	}
 
-    public Timestamp getCreateTime() {
-        return createTime;
-    }
+	public Timestamp getCreateTime() {
+		return createTime;
+	}
 
-    public void setCreateTime(Timestamp createTime) {
-        this.createTime = createTime;
-    }
+	public void setCreateTime(Timestamp createTime) {
+		this.createTime = createTime;
+	}
 }

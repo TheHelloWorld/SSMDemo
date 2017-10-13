@@ -8,9 +8,10 @@ import java.util.List;
 @Repository
 public interface TargetTagDAO {
 
-    /**
-     * 获得所有平台标签
-     * @return
-     */
-    List<TargetTag> queryAllTargetTag();
+	/**
+	 * 获得所有平台标签
+	 *
+	 * @return
+	 */
+	List<TargetTag> queryAllTargetTag();
 }

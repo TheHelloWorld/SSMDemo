@@ -14,25 +14,25 @@ public class SendMessage {
 
 	private static final Logger logger = LoggerFactory.getLogger(SendMessage.class);
 
-	public static String send(String content , String mobile) {
+	public static String send(String content, String mobile) {
 		String inputLine = "";
-		try{
+		try {
 			StringBuilder sb = new StringBuilder("http://m.5c.com.cn/api/send/index.php");
 			sb.append("?username=").append("gairui");
 			sb.append("&password=").append("ml160816");
 			sb.append("&apikey=").append("60f6119a17ca2127012b00287a6605f2");
 			sb.append("&mobile=").append(mobile);
-			sb.append("&content=").append(URLEncoder.encode(content,"GBK"));
+			sb.append("&content=").append(URLEncoder.encode(content, "GBK"));
 			URL url = new URL(sb.toString());
-			HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
 			inputLine = in.readLine();
 			logger.info(inputLine);
-		}catch(Exception e){
-			logger.error(BaseConstant.LOG_ERR_MSG+" send error:"+e,e);
+		} catch (Exception e) {
+			logger.error(BaseConstant.LOG_ERR_MSG + " send error:" + e, e);
 		}
 		return inputLine;
-		
+
 	}
 }

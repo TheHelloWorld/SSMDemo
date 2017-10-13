@@ -2,18 +2,30 @@ package com.lxjr.sudadai.entity;
 
 import java.io.Serializable;
 
-public class Source implements Serializable{
+public class Source implements Serializable {
 
-	
+
 	private static final long serialVersionUID = -4954366162493302680L;
-	
-	private Long id; 			/*	id bigint 	*/
 
-	private String name; 		/*	来源名称（beta，beta2...）	varchar(100)	*/
+	/**
+	 * id bigint
+	 */
+	private Long id;
 
-	private String sourceCode;	/*	来源码(bt001)	varchar(100)	*/
+	/**
+	 * 来源名称(beta，beta2...)	varchar(100)
+	 */
+	private String name;
 
-	private String companyName; 	/*	来源公司名称	varchar（100） */
+	/**
+	 * 来源码(bt001)	varchar(100)
+	 */
+	private String sourceCode;
+
+	/**
+	 * 来源公司名称	varchar（100）
+	 */
+	private String companyName;
 
 	public Long getId() {
 		return id;
@@ -46,7 +58,6 @@ public class Source implements Serializable{
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	
-		
-	
+
+
 }

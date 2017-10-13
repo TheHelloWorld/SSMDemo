@@ -6,10 +6,11 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UserToDAO {
 
-    /**
-     * 保存用户去向
-     * @param userTo 用户去向
-     * @return
-     */
-    void saveUserTo(UserTo userTo);
+	/**
+	 * 保存用户去向
+	 *
+	 * @param userTo 用户去向
+	 * @return
+	 */
+	void saveUserTo(UserTo userTo);
 }

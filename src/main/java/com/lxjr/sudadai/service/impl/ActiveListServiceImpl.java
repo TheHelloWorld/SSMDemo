@@ -10,15 +10,16 @@ import javax.annotation.Resource;
 @Service("activeListService")
 public class ActiveListServiceImpl implements IActiveListService {
 
-    @Resource
-    private ActiveListDAO activeListDAO;
+	@Resource
+	private ActiveListDAO activeListDAO;
 
-    /**
-     * 根据活动code获得活动信息
-     * @param activeCode 活动code
-     * @return
-     */
-    public ActiveInfo queryActiveInfo(String activeCode) {
-        return activeListDAO.queryActiveInfoByActiveCode(activeCode);
-    }
+	/**
+	 * 根据活动code获得活动信息
+	 *
+	 * @param activeCode 活动code
+	 * @return
+	 */
+	public ActiveInfo queryActiveInfo(String activeCode) {
+		return activeListDAO.queryActiveInfoByActiveCode(activeCode);
+	}
 }
